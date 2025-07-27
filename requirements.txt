@@ -1,0 +1,7 @@
+gTTS
+os
+PyAudio
+SpeechRecognition
+pydub
+openai
+pyautogui
