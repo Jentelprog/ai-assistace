@@ -11,33 +11,33 @@ import json
 from duckduckgo_search import DDGS
 from google import genai
 
-
+#search function it open the browser and search for the content that you gave it in the input
 def search(search):
     goToDesk()
     pyautogui.screenshot("screenshot.png")
     m = pyautogui.locate("images/browser.png", "screenshot.png", confidence=0.9)
-    t = 3
+    t = 2
     if not m:
         m = pyautogui.locate("images/browseropen.png", "screenshot.png", confidence=0.9)
         t = 0.5
 
-    pyautogui.moveTo(m, duration=1)
+    pyautogui.moveTo(m)
     pyautogui.click()
     time.sleep(t)
     # pyautogui.screenshot("screenshot.png")
     # m1=pyautogui.locate("images/browseropen.png","screenshot.png",confidence=0.9)
     pyautogui.hotkey("ctrl", "t")
-    pyautogui.write(search, 0.2)
+    pyautogui.write(search)
     pyautogui.press("enter")
 
-
+# goToDesk is a function that i made so each time the bot take control i go back to desktop to avoid errors from having defrent starting points
 def goToDesk():
     pyautogui.FAILSAFE = False
     c = pyautogui.size()
     pyautogui.moveTo(c)
     pyautogui.click()
 
-
+# ducksearch is function useing the duckduckgo library to get link that will be searched for in the browser later
 def ducksearch(prompt, max_results=2):
     results = DDGS().text(prompt, max_results=max_results)
     i = 1
@@ -54,7 +54,7 @@ def ducksearch(prompt, max_results=2):
     # speak(n)
     search(links[1])
 
-
+#recognizer is a function used to reconize the speach from the user and turn it to text
 def recognizer():
     with sr.Microphone() as source:
         recognizer = sr.Recognizer()
@@ -73,7 +73,7 @@ def recognizer():
             print(f"Could not request results; {e}")
     return text
 
-
+# speak is used to simply tts
 def speak(text):
     myobj = gTTS(text=text, lang="en", slow=False)
     myobj.save("speach.mp3")
@@ -81,7 +81,7 @@ def speak(text):
     sound.export("speach.wav", format="wav")
     winsound.PlaySound("speach.wav", winsound.SND_FILENAME)
 
-
+# append_json is used to append the json file that is used as history
 def append_json(field, content):
     with open("history.json", "r") as f:
         json_file = json.load(f)
@@ -89,7 +89,7 @@ def append_json(field, content):
     with open("history.json", "w") as f:
         json.dump(json_file, f)
 
-
+#chat is used to comunicate with the server that is hosting the lm model in case you want to talk with the girlfriend
 def chat(text):
     client = OpenAI(base_url="http://127.0.0.1:1234/v1", api_key="lm-studio")
     models = [
@@ -110,9 +110,9 @@ def chat(text):
     )
     return response.choices[0].message.content
 
-
+#gemini is used to comunicate with gemini api as an alternative for the local server
 def gemini(text):
-    with open("api.txt", "r") as f:
+    with open(r"C:\Users\ilyes\OneDrive\Desktop\api.txt", "r") as f:
         api_key = f.readline()
 
     client = genai.Client(api_key=api_key)
@@ -120,7 +120,7 @@ def gemini(text):
     response = client.models.generate_content(model="gemini-2.5-flash", contents=text)
     return response.text
 
-
+#resp is used to choose what the bot should do based on your input
 def resp(text):
     if text != "Sorry, I could not understand the audio.":
         if "my screen" in text:
