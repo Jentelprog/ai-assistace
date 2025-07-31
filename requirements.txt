@@ -1,7 +1,12 @@
 gTTS
-os
 PyAudio
 SpeechRecognition
 pydub
 openai
 pyautogui
+google
+duckduckgo_search
+openai-whisper
+setuptools-rust
+RealtimeSTT
+pyttsx3
