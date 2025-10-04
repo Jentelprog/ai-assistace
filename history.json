@@ -223,6 +223,14 @@
         {
             "user": "say hello",
             "bot": "Hey there! \ud83d\udc4b What's on your mind today? Ready when you are, or just here to hang out."
+        },
+        {
+            "user": "hello how are you ",
+            "bot": "Hey there! I'm doing pretty great, actually. All charged up and ready for whatever you've got cooking. My \"mood\" is basically perpetually \"eager to chat.\" \ud83d\ude09\n\nHow about you? What's on your mind today, or just checking in? Spill the beans!"
+        },
+        {
+            "user": "say hello",
+            "bot": "Hey there! Always good to see you pop in. What's on your mind today, or just looking to chat? I'm all ears."
         }
     ]
 }

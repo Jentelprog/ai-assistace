@@ -11,11 +11,13 @@ import json
 from duckduckgo_search import DDGS
 from google import genai
 import whisper
-#elevenlabs requirements
+
+# elevenlabs requirements
 from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 import os
+
 
 # search function it open the browser and search for the content that you gave it in the input
 def search(search):
@@ -90,6 +92,8 @@ def googleSpeak(text):
     sound = AudioSegment.from_mp3("speach.mp3")
     sound.export("speach.wav", format="wav")
     winsound.PlaySound("speach.wav", winsound.SND_FILENAME)
+
+
 # speak is using elevenlabs good quaity but limited time of free use
 def elevenSpeak(text):
     load_dotenv()
@@ -108,6 +112,8 @@ def elevenSpeak(text):
     )
 
     play(audio)
+
+
 # speak is using wisper good quality but limited voices
 def wisper(audio_file):
     model = whisper.load_model("turbo")
@@ -157,24 +163,27 @@ def gemini(text):
 
     response = client.models.generate_content(model="gemini-2.5-flash", contents=text)
     return response.text
-#to shut down the pc
+
+
+# to shut down the pc
 def shutdown():
     pyautogui.screenshot("screenshot.png")
     # pyautogui.screenshot("tofind1.png",[1128,65,307,42])
-    r=pyautogui.locate("images/tofind.png","screenshot.png")
+    r = pyautogui.locate("images/tofind.png", "screenshot.png")
     print(r)
-    pyautogui.moveTo(r,duration=2)
+    pyautogui.moveTo(r, duration=2)
     pyautogui.click()
     time.sleep(1)
     pyautogui.screenshot("screenshot.png")
-    r1=pyautogui.locate("images/tofind2.png","screenshot.png")
-    pyautogui.moveTo(r1,duration=2)
+    r1 = pyautogui.locate("images/tofind2.png", "screenshot.png")
+    pyautogui.moveTo(r1, duration=2)
     pyautogui.click()
     time.sleep(1)
     pyautogui.screenshot("screenshot.png")
-    r2=pyautogui.locate("images/tofind3.png","screenshot.png")
-    pyautogui.moveTo(r2,duration=1)
+    r2 = pyautogui.locate("images/tofind3.png", "screenshot.png")
+    pyautogui.moveTo(r2, duration=1)
     pyautogui.doubleClick()
+
 
 # resp is used to choose what the bot should do based on your input
 def resp(text):
@@ -187,7 +196,7 @@ def resp(text):
             prompt = recognizer()
             # prompt = "cats memes"
             ducksearch(prompt)
-        if text.lower() =="shut down":
+        if text.lower() == "shut down":
             shutdown()
         else:
             confirm = pyautogui.confirm(
@@ -206,8 +215,8 @@ def resp(text):
 if __name__ == "__main__":
     text = ""
     while text != "exit":
-        text = recognizer()
-        # text = input("user: ")
+        # text = recognizer()
+        text = input("user: ")
         # search(text)
         if text == "exit":
             break
